@@ -229,9 +229,16 @@ public class ChecklistUI extends JFrame {
 		headerPanel.add(addItemButton);
 		addItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				initializeFrame();
-				//(Proceed as normal)
-				//Pop up new window
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							AddPopUp frame = new AddPopUp(thisReference);
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
 		
@@ -243,6 +250,23 @@ public class ChecklistUI extends JFrame {
 			}
 		});
 
+		JButton resetButton = new JButton("Reset Time");
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ResetTimePopUp frame = new ResetTimePopUp(thisReference);
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		headerPanel.add(resetButton);
+		
 		//List items
 		JPanel listPanel = new JPanel();
 		listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
